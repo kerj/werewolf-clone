@@ -28,7 +28,7 @@ StartGame.prototype.gameOver = function() {
       devCount +=1;
     }
   }
-  console.log(bugCount, devCount)
+  
   if (bugCount === 0) {
      console.log('Devs won! Go back to work')
      return [true, "#dev-win"];
@@ -96,64 +96,16 @@ function voteCount() {
   for (var i = 0; i < newGame.playerTurns.length; i++){
     if (highVote.voteCount === newGame.players[i].voteCount && highVote.playerId != newGame.players[i].playerId){
       resetVoteCount();
-
       return "#vote-draw"
     }else if (newGame.playerTurns[i] === highVote.playerId) {
       newGame.players[i].playerStatus = !newGame.players[i].playerStatus
-      voteVictim = i;
+      voteVictim = highVote.playerId;
       newGame.playerTurns.splice(i, 1);
       resetVoteCount();
       return "#vote-victim"
     }
   }
 }
-
-// function voteCount(){
-//   if (newGame.players[0].voteCount > newGame.players[1].voteCount && newGame.players[0].voteCount > newGame.players[2].voteCount && newGame.players[0].voteCount > newGame.players[3].voteCount) {
-//     newGame.players[0].playerStatus = !newGame.players[0].playerStatus;
-//     for (var j = 0; j < newGame.playerTurns.length; j++){
-//       if (newGame.playerTurns[j] === 0){
-//         newGame.playerTurns.splice(j,1);
-//       }
-//     }
-//     resetVoteCount();
-//     voteVictim = 0;
-//     return "#vote-victim";
-//   } else if (newGame.players[1].voteCount > newGame.players[0].voteCount && newGame.players[1].voteCount > newGame.players[2].voteCount && newGame.players[1].voteCount > newGame.players[3].voteCount) {
-//     newGame.players[1].playerStatus = !newGame.players[1].playerStatus;
-//     for (var j = 0; j < newGame.playerTurns.length; j++){
-//       if (newGame.playerTurns[j] === 1){
-//         newGame.playerTurns.splice(j,1);
-//       }
-//     }
-//     resetVoteCount();
-//     voteVictim = 1;
-//     return "#vote-victim";
-//   } else if (newGame.players[2].voteCount > newGame.players[0].voteCount && newGame.players[2].voteCount > newGame.players[1].voteCount && newGame.players[2].voteCount > newGame.players[3].voteCount) {
-//     newGame.players[2].playerStatus = !newGame.players[2].playerStatus;
-//     for (var j = 0; j < newGame.playerTurns.length; j++){
-//       if (newGame.playerTurns[j] === 2){
-//         newGame.playerTurns.splice(j,1);
-//       }
-//     }
-//     resetVoteCount();
-//     voteVictim = 2;
-//     return "#vote-victim";
-//   } else if (newGame.players[3].voteCount > newGame.players[0].voteCount && newGame.players[3].voteCount > newGame.players[2].voteCount && newGame.players[3].voteCount > newGame.players[1].voteCount) {
-//     newGame.players[3].playerStatus = !newGame.players[3].playerStatus;
-//     for (var j = 0; j < newGame.playerTurns.length; j++){
-//       if (newGame.playerTurns[j] === 3){
-//         newGame.playerTurns.splice(j,1);
-//       }
-//     }
-//     resetVoteCount();
-//     voteVictim = 3;
-//     return "#vote-victim";
-//   } else {
-//     resetVoteCount();
-//     return "#vote-draw";
-//   }
-// }
 
 function resetVoteCount() {
   for (var i = 0; i < newGame.players.length; i++){
