@@ -1,5 +1,14 @@
-var newGame = new StartGame(4);
+$(document).ready(function()  {
+  $("button#set-players").on('click', function()  {
+    playerCount = $("select").val();
+    newGame = new StartGame(playerCount);
+  })
+})
+
+
 var voteVictim;
+var newGame;
+var playerCount;
 
 function StartGame(numberOfPlayers) {
   this.players = [],
@@ -19,8 +28,8 @@ StartGame.prototype.randomRoles = function(numberOfPlayers) {
 }
 
 StartGame.prototype.gameOver = function() {
-    var bugCount = 0;
-    var devCount = 0;
+  var bugCount = 0;
+  var devCount = 0;
   for (let i = 0; i <= newGame.players.length - 1; i++) {
     if (newGame.players[i].roleId === "Bug" && newGame.players[i].playerStatus) {
       bugCount += 1;
@@ -28,10 +37,10 @@ StartGame.prototype.gameOver = function() {
       devCount +=1;
     }
   }
-  
+
   if (bugCount === 0) {
-     console.log('Devs won! Go back to work')
-     return [true, "#dev-win"];
+    console.log('Devs won! Go back to work')
+    return [true, "#dev-win"];
   } else if (bugCount >= devCount) {
     console.log("Bugs won! Let's be fair, this company sucked anyway");
     return [true, "#bug-win"];
@@ -133,9 +142,9 @@ function startTimer(seconds) {
       $("#discussion").show();
       $("#timeClock").hide();
       clearInterval(interval);
-      };
-    }, 1000);
-  };
+    };
+  }, 1000);
+};
 
 $(function(){
   var candidate;
@@ -144,8 +153,8 @@ $(function(){
   var twoMinute = 10;
   $('form').submit(function(e) {
     e.preventDefault();
-    newGame.randomRoles(4);
-    for (let i = 1; i <= 4; i++) {
+    newGame.randomRoles(playerCount);
+    for (let i = 1; i <= playerCount; i++) {
       var name = $('input#name' + i).val();
       var player = new Player(name);
       player.addPlayer();
@@ -287,8 +296,8 @@ $(function(){
   })
 
   $('#day-end-begin-night').on('click', function() {
-      $('#day-end-roles').hide();
-      $('#night-intro').show();
+    $('#day-end-roles').hide();
+    $('#night-intro').show();
   })
 
 });
